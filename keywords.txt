@@ -1,0 +1,5 @@
+StepperMotor	KEYWORD1
+
+SetMode	KEYWORD2
+SetVel	KEYWORD2
+SetPins	KEYWORD2
