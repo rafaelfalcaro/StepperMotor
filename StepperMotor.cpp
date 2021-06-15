@@ -4,7 +4,7 @@
 //************************************************************************************
 // Funções Públicas
 
-// Mantém o motor na posição atual
+// Mantém o Motor na posição atual
 void StepperMotor::Brake() {
     digitalWrite(pinEnable, LOW);
     digitalWrite(pinReset , HIGH);
@@ -27,7 +27,7 @@ void StepperMotor::Jog(bool _dir) {
     digitalWrite(pinDir   , _dir);
 }
 
-// Mantém o motor na posição atual
+// Desliga o controle do Motor
 void StepperMotor::Kill() {
     digitalWrite(pinEnable, HIGH);
     digitalWrite(pinReset , HIGH);
@@ -160,9 +160,9 @@ void StepperMotor::moveMotor(int _pos) {
     }*/
 }
 
-// Altera a velocidade do motor
+// Altera a velocidade do Motor
 void StepperMotor::setSpeed() {
-    double Velo = 1.8*JogSpeed;     // 360° / (200 PPR / Stepping) * JogSpeed
+    double Velo = JogSpeed * ScaleFactor;   // Aplicação do fator de escala na velocidade
     uint8_t Counts = 0.0099009900990099*R5+99.009900990099-0.00852716850632432*R5*RS*Stepping*VIN/(CT*RL*RT*Velo);
-    DigiPot.Set(Counts);            // Escrita dos Counts no módulo X9C103S
+    DigiPot.Set(Counts);                    // Escrita dos Counts no módulo X9C103S
 }

@@ -16,13 +16,13 @@
 class StepperMotor {
     public:
         // Funções
-        void Brake();                       // Mantém o motor na posição atual
+        void Brake();                       // Mantém o Motor na posição atual
         void Home();                        // Movimento automático até a posição de Home
         void Jog(bool _dir);                // Movimento em Jog
-        void Kill();                        // Libera o eixo do Motor
+        void Kill();                        // Desliga o controle do Motor
         void MoveInc(int _pos);             // Movimento incremental
         void MoveTo(int _pos);              // Movimento absoluto
-        void SetMode(byte Mode);            // Seleção do modo de funcionamento do motor
+        void SetMode(byte Mode);            // Seleção do modo de funcionamento do Motor
         void SetPins(byte _pFault, byte _pDir, byte _pSleep, byte _pReset, byte _pMode2, byte _pMode1, byte _pEnable, byte _pMode0, byte _pStep, byte _pCS, byte _pINC, byte _pUD);   // Define automaticamente os pinos do Driver como IN/OUT
 
         // Objeto da biblioteca X9C103S
@@ -30,26 +30,23 @@ class StepperMotor {
 
         // Parametrização do Motor
         byte Dir;                           // Sentido de Giro: 0->CW / 1->CCW
-        byte HomeOffset;                    // Offset de posição [cts]
-        byte JogSpeed;                      // Setpoint de velocidade de movimento [cts/s]
+        double HomeOffset;                  // Offset de posição [°]
+        double JogSpeed;                    // Setpoint de velocidade de movimento [°/s]
         byte JogTa;                         // Tempo de aceleração [s]
         byte JogTd;                         // Tempo de desaceleração [s]
-        int MaxPos;                         // Posição Máxima permitida [cts]
-        int MinPos;                         // Posição Mínima permitida [cts]
-        double Mres;                        // Resolução do movimento [°]
+        double MaxPos;                      // Posição Máxima permitida [°]
+        double MinPos;                      // Posição Mínima permitida [°]
+        double ScaleFactor;                 // Fator de escala para a movimentação
         
         // Status do Motor
-        int ActPos;                         // Posição atual processada do Servo [cts]
-        int ActPos2;                        // Posição atual processada do Servo [°]
-        byte Pos;                           // Posição atual não processada do Servo [cts]
-        byte Pos2;                          // Posição atual não processada do Servo [°]
-        byte Velocity;                      // Velocidade atual de movimento do Servo [cts/s]
-        byte Velocity2;                     // Velocidade atual de movimento do Servo [°/s]
+        double ActPos;                      // Posição atual processada do Motor [°]
+        double Pos;                         // Posição atual não processada do Motor [°]
+        double Velocity;                    // Velocidade atual do Motor [°/s]
 
     private:
         // Funções
         void moveMotor(int _pos);           // Move (absoluto) levando em consideração velocidade e aceleração
-        void setSpeed();                    // Altera a velocidade do motor
+        void setSpeed();                    // Altera a velocidade do Motor
 
         // Pinos do Driver DRV8825
         byte pinFault;                      // Diagnóstico de Falha
@@ -63,7 +60,7 @@ class StepperMotor {
         byte pinStep;                       // Steps para o Motor
 
         // Variáveis de lógica
-        double Stepping;                    // Razão de passos completos do motor
+        double Stepping;                    // Razão de passos completos do Motor
 };
 
 #endif
