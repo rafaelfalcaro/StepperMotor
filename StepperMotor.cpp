@@ -20,6 +20,7 @@ void StepperMotor::Home() {
 
 // Movimento em Jog
 void StepperMotor::Jog(bool _dir) {
+    setSpeed();
     digitalWrite(pinEnable, LOW);
     digitalWrite(pinReset , HIGH);
     digitalWrite(pinSleep , HIGH);
@@ -122,7 +123,7 @@ void StepperMotor::SetPins(byte _pFault, byte _pDir, byte _pSleep, byte _pReset,
 // Move (absoluto) levando em consideração velocidade e aceleração
 void StepperMotor::moveMotor(int _pos) {
     
-    setSpeed();
+    //setSpeed();
     
     /*
     #include "PID.h"
@@ -162,7 +163,13 @@ void StepperMotor::moveMotor(int _pos) {
 
 // Altera a velocidade do Motor
 void StepperMotor::setSpeed() {
-    double Velo = JogSpeed * ScaleFactor;   // Aplicação do fator de escala na velocidade
-    uint8_t Counts = 0.0099009900990099*R5+99.009900990099-0.00852716850632432*R5*RS*Stepping*VIN/(CT*RL*RT*Velo);
-    DigiPot.Set(Counts);                    // Escrita dos Counts no módulo X9C103S
+    //double Velo = JogSpeed * ScaleFactor;   // Aplicação do fator de escala na velocidade
+    //uint8_t Counts = 0.0099009900990099*R5+99.009900990099-0.00852716850632432*R5*RS*Stepping*VIN/(CT*RL*RT*Velo);
+    //DigiPot.Set(Counts);                    // Escrita dos Counts no módulo X9C103S
+
+
+    DigiPot.Set(JogSpeed);
+
+    Serial.print("JogSpeed: ");
+    Serial.println(JogSpeed);
 }
