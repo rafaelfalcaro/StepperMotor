@@ -45,7 +45,7 @@ class StepperMotor {
 
     private:
         // Funções
-        void moveMotor(int _pos);           // Move (absoluto) levando em consideração velocidade e aceleração
+        void moveMotor(double _pos);        // Move (absoluto) levando em consideração velocidade e aceleração
         void setSpeed();                    // Altera a velocidade do Motor
 
         // Pinos do Driver DRV8825

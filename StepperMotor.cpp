@@ -121,7 +121,7 @@ void StepperMotor::SetPins(byte _pFault, byte _pDir, byte _pSleep, byte _pReset,
 // Funções Privadas
 
 // Move (absoluto) levando em consideração velocidade e aceleração
-void StepperMotor::moveMotor(int _pos) {
+void StepperMotor::moveMotor(double _pos) {
     
     //setSpeed();
     
@@ -163,13 +163,5 @@ void StepperMotor::moveMotor(int _pos) {
 
 // Altera a velocidade do Motor
 void StepperMotor::setSpeed() {
-    //double Velo = JogSpeed * ScaleFactor;   // Aplicação do fator de escala na velocidade
-    //uint8_t Counts = 0.0099009900990099*R5+99.009900990099-0.00852716850632432*R5*RS*Stepping*VIN/(CT*RL*RT*Velo);
-    //DigiPot.Set(Counts);                    // Escrita dos Counts no módulo X9C103S
-
-
     DigiPot.Set(JogSpeed);
-
-    Serial.print("JogSpeed: ");
-    Serial.println(JogSpeed);
 }
